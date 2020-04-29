@@ -1,0 +1,9 @@
+{
+  "name": "jaeycoin",
+  "version": "1.0.0",
+  "description": "Blockchain practice w/ Typescript",
+  "main": "index.js",
+  "repository": "https://github.com/jaeyp/jaeycoin.git",
+  "author": "<jp.inseoul@gmail.com>",
+  "license": "Apache"
+}
