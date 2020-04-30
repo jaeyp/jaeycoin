@@ -7,7 +7,7 @@
   "author": "Jaehyun Park <jp.inseoul@gmail.com>",
   "license": "Apache",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "prestart": "tsc"
   }
 }
