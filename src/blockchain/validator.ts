@@ -48,7 +48,7 @@ const isValidTimestamp = (newBlock: Block, previousBlock: Block): boolean => {
 }
 const hasValidHash = (block: Block): boolean => {
         const hashMatchesBlockContent = (block: Block): boolean => {
-            const blockHash: string = Blockchain.calculateHashForBlock(block);
+            const blockHash: string = Util.calculateHashForBlock(block);
             return blockHash === block.hash;
         }
         if (!hashMatchesBlockContent(block)) {

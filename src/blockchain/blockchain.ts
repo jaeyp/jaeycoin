@@ -29,10 +29,6 @@ const genesisBlock: Block = new Block(0, "816534932c2b7154836da6afc367695e6337db
 // A in-memory Javascript array is used to store the blockchain. 
 let blockchain: Block[] = [genesisBlock]
 
-const calculateHashForBlock = (block: Block): string =>
-    Util.calculateHash(block.index, block.previousHash, block.timestamp, block.data)
-
-
 const getBlockchain = (): Block[] => blockchain
 
 const getGenesisBlock = (): Block => genesisBlock
@@ -62,7 +58,6 @@ const addBlockToChain = (newBlock: Block): void => {
 
 export default Block
 export {
-    calculateHashForBlock,
     getBlockchain,
     getGenesisBlock,
     getLatestBlock,
