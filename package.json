@@ -10,11 +10,13 @@
     "@comment 1.manual compile mode": "",
     "@comment start": "node src/index.js",
     "@comment prestart": "tsc",
-
     "@comment 2.watch mode": "tsc-watch is similar to nodemon but for TypeScript",
-    "start": "tsc-watch --compiler \"C:\\Users\\jpins\\AppData\\Local\\Yarn\\bin\\tsc\" --onSuccess \"node dist/index.js\""
+    "start": "tsc-watch --compiler \"C:\\Users\\jpins\\AppData\\Local\\Yarn\\bin\\tsc\" --onSuccess \"node dist/main.js\""
   },
   "devDependencies": {
     "tsc-watch": "^4.2.3"
+  },
+  "dependencies": {
+    "crypto-js": "^4.0.0"
   }
 }

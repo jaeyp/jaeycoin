@@ -5,8 +5,8 @@
 ```bash
 ~$ yarn init
 ~$ yarn global add typescript
-# support watch mode
-~$ yarn add tsc-watch --dev
+~$ yarn add tsc-watch --dev  # support watch mode
+~$ yarn add crypto-j
 ```
 * from cloning
 ```bash
