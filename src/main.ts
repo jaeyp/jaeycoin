@@ -1,7 +1,7 @@
 import * as Blockchain from './blockchain'
 
-Blockchain.generateNewBlock("Hello")
-Blockchain.generateNewBlock("Bye Bye")
+Blockchain.generateNextBlock("Hello")
+Blockchain.generateNextBlock("Bye Bye")
 
 console.log(Blockchain.getBlockchain())
 

@@ -88,7 +88,7 @@ const getLatestBlock = (): Block => blockchain[blockchain.length - 1]
 
 const getCurrentTimestamp = (): number => Math.round(new Date().getTime() / 1000);
 
-const generateNewBlock = (data: string): Block => {
+const generateNextBlock = (data: string): Block => {
     const previousBlock: Block = getLatestBlock()
     const nextIndex: number = previousBlock.index + 1
     const nextTimestamp: number = getCurrentTimestamp()
@@ -111,5 +111,5 @@ const addBlockToChain = (newBlock: Block): void => {
 
 export {
     getBlockchain,
-    generateNewBlock
+    generateNextBlock
 };
