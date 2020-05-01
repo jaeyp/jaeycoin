@@ -111,6 +111,5 @@ const addBlockToChain = (newBlock: Block): void => {
 
 export {
     getBlockchain,
-    generateNewBlock,
-    addBlockToChain
+    generateNewBlock
 };
