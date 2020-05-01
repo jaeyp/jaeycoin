@@ -99,6 +99,7 @@ const generateNewBlock = (data: string): Block => {
         data
     )
     const newBlock: Block = new Block(nextIndex, nextHash, previousBlock.hash, nextTimestamp, data)
+    addBlockToChain(newBlock)
     return newBlock
 }
 
