@@ -63,5 +63,4 @@ dist
 node_modules
 
 # tsc outputs
-src/*.js
-src/*.map
+dist
