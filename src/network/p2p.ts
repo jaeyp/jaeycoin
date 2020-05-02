@@ -40,6 +40,7 @@ const initP2PServer = (p2pPort: number) => {
     server.on('connection', (ws: WebSocket) => {
         console.log('Event: connection')
         console.log(`SERVER accept...: ${(<any>ws)._socket.remoteAddress}:${(<any>ws)._socket.remotePort}`)
+        // establish full-duplex connection and handshake
         initConnection(ws);
     });
     console.log('listening websocket p2p port on: ' + p2pPort);
