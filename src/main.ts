@@ -11,17 +11,21 @@ const initHttpServer = ( myHttpPort: number ) => {
     const app = express();
     app.use(express.json());
 
+    // list all blocks
     app.get('/blocks', (req, res) => {
         res.send(Blockchain.getBlockchain());
     });
+    // creage a new block with a content given
     app.post('/mineBlock', (req, res) => {
         console.log(req.body)
         const newBlock: Block = Blockchain.generateNextBlock(req.body.data);
         res.send(newBlock);
     });
+    // list all peers
     app.get('/peers', (req, res) => {
         res.send(Network.getSockets().map(( s: any ) => s._socket.remoteAddress + ':' + s._socket.remotePort));
     });
+    // add a new peer
     app.post('/addPeer', (req, res) => {
         Network.connectToPeers(req.body.peer);
         res.send();

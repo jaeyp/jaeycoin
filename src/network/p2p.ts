@@ -2,7 +2,7 @@ import * as WebSocket from 'ws';
 import { Server } from 'ws';
 import Block, * as Blockchain from '../blockchain/';
 
-// active sockets for each nodes
+// active sockets for each nodes (peers)
 const sockets: WebSocket[] = []
 
 /**
@@ -58,7 +58,7 @@ const initMessageHandler = (ws: WebSocket) => {
             console.log('could not parse received JSON message: ' + data);
             return;
         }
-        console.log('Received message' + JSON.stringify(message));
+        console.log('Received message: ' + JSON.stringify(message));
         switch (message.type) {
             case MessageType.QUERY_LATEST:  // node connected to a new peer
                 write(ws, responseLatestMsg());  // send the latest block
@@ -137,9 +137,21 @@ const broadcastLatest = (): void => {
     broadcast(responseLatestMsg());
 };
 
+/**
+ * Add a new peer to peers(const sockets: WebSocket[]) manually
+ * @param newPeer 
+ * @description
+ *      p2p session between new peer and p2p server established here (Hybrid P2P)
+ */
 const connectToPeers = (newPeer: string): void => {
+    console.log('newPeer: ', newPeer)
+    // create socket
     const ws: WebSocket = new WebSocket(newPeer);
     ws.on('open', () => {
+        // socket open handler: 
+        // 1. add socket to peers
+        // 2. register handlers (message, close, error)
+        // 3. send message (QUERY_LATEST)
         initConnection(ws);
     });
     ws.on('error', () => {
