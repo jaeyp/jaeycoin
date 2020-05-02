@@ -38,21 +38,29 @@ const getSockets = () => sockets;
 const initP2PServer = (p2pPort: number) => {
     const server: Server = new WebSocket.Server({port: p2pPort});
     server.on('connection', (ws: WebSocket) => {
+        console.log('Event: connection')
+        console.log(`SERVER accept...: ${(<any>ws)._socket.remoteAddress}:${(<any>ws)._socket.remotePort}`)
         initConnection(ws);
     });
     console.log('listening websocket p2p port on: ' + p2pPort);
 };
 
 const initConnection = (ws: WebSocket) => {
+    // 1. add new socket to peers
     sockets.push(ws);
+    // 2. register socket handlers for message, close and error
     initMessageHandler(ws);
     initErrorHandler(ws);
+    // 3. send message (QUERY_LATEST): connect to P2P server
     write(ws, queryChainLengthMsg());
     //ws.send(JSON.stringify(queryChainLengthMsg()));
 };
 
 const initMessageHandler = (ws: WebSocket) => {
     ws.on('message', (data: string) => {
+        console.log('Event: message ')
+        console.log(`remote node: ${(<any>ws)._socket.remoteAddress}:${(<any>ws)._socket.remotePort}`)
+        // receiving data
         const message: Message = JSONToObject<Message>(data);
         if (message === null) {
             console.log('could not parse received JSON message: ' + data);
@@ -138,20 +146,20 @@ const broadcastLatest = (): void => {
 };
 
 /**
- * Add a new peer to peers(const sockets: WebSocket[]) manually
+ * Add a new peer to peers(const sockets: WebSocket[])
  * @param newPeer 
  * @description
  *      p2p session between new peer and p2p server established here (Hybrid P2P)
  */
-const connectToPeers = (newPeer: string): void => {
-    console.log('newPeer: ', newPeer)
-    // create socket
-    const ws: WebSocket = new WebSocket(newPeer);
+const connectToPeers = (destURL: string): void => {
+    console.log('connectToPeers: ', destURL)
+    // Create a new socket!
+    const ws: WebSocket = new WebSocket(destURL);
+    // Connect to destURL - localhost:6001 (P2P Server)
     ws.on('open', () => {
-        // socket open handler: 
-        // 1. add socket to peers
-        // 2. register handlers (message, close, error)
-        // 3. send message (QUERY_LATEST)
+        console.log('Event: open')
+        // initialize socket and send data
+        console.log(`CLIENT send data to ${(<any>ws)._socket.remoteAddress}:${(<any>ws)._socket.remotePort}`)
         initConnection(ws);
     });
     ws.on('error', () => {
