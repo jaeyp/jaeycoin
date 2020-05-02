@@ -53,8 +53,8 @@ const initConnection = (ws: WebSocket) => {
     initMessageHandler(ws);
     initErrorHandler(ws);
     // 3. send message (QUERY_LATEST): connect to P2P server
-    write(ws, queryChainLengthMsg());
-    //ws.send(JSON.stringify(queryChainLengthMsg()));
+    console.log(`send message to ${(<any>ws)._socket.remoteAddress}:${(<any>ws)._socket.remotePort}`)
+    write(ws, queryLatestBlock());
 };
 
 const initMessageHandler = (ws: WebSocket) => {
@@ -70,10 +70,10 @@ const initMessageHandler = (ws: WebSocket) => {
         console.log('Received message: ' + JSON.stringify(message));
         switch (message.type) {
             case MessageType.QUERY_LATEST:  // node connected to a new peer
-                write(ws, responseLatestMsg());  // send the latest block
+                write(ws, responseLatestBlock());  // send the latest block
                 break;
             case MessageType.QUERY_ALL:  // node encountered a block out of its chain
-                write(ws, responseChainMsg());  // send full chain
+                write(ws, responseBlockchain());  // send full chain
                 break;
             case MessageType.RESPONSE_BLOCKCHAIN:  // node generated a new block
                 const receivedBlocks: Block[] = JSONToObject<Block[]>(message.data);
@@ -104,11 +104,11 @@ const handleBlockchainResponse = (receivedBlocks: Block[]) => {
             + latestBlockHeld.index + ' Peer got: ' + latestBlockReceived.index);
         if (latestBlockHeld.hash === latestBlockReceived.previousHash) {
             if (Blockchain.addBlockToChain(latestBlockReceived)) {
-                broadcast(responseLatestMsg());
+                broadcast(responseLatestBlock());
             }
         } else if (receivedBlocks.length === 1) {
             console.log('We have to query the chain from our peer');
-            broadcast(queryAllMsg());
+            broadcast(queryAllBlocks());
         } else {
             console.log('Received blockchain is longer than current blockchain');
             Blockchain.replaceChain(receivedBlocks);
@@ -130,20 +130,21 @@ const initErrorHandler = (ws: WebSocket) => {
 const write = (ws: WebSocket, message: Message): void => ws.send(JSON.stringify(message));
 const broadcast = (message: Message): void => sockets.forEach((socket) => write(socket, message));
 
-const queryChainLengthMsg = (): Message => ({'type': MessageType.QUERY_LATEST, 'data': null});
-const queryAllMsg = (): Message => ({'type': MessageType.QUERY_ALL, 'data': null});
+const queryLatestBlock = (): Message => ({'type': MessageType.QUERY_LATEST, 'data': null});
+const queryAllBlocks = (): Message => ({'type': MessageType.QUERY_ALL, 'data': null});
 
-const responseChainMsg = (): Message => ({
-    'type': MessageType.RESPONSE_BLOCKCHAIN, 'data': JSON.stringify(Blockchain.getBlockchain())
+const responseBlockchain = (): Message => ({
+    'type': MessageType.RESPONSE_BLOCKCHAIN, 
+    'data': JSON.stringify(Blockchain.getBlockchain())
 });
 
-const responseLatestMsg = (): Message => ({
+const responseLatestBlock = (): Message => ({
     'type': MessageType.RESPONSE_BLOCKCHAIN,
     'data': JSON.stringify([Blockchain.getLatestBlock()])
 });
 
 const broadcastLatest = (): void => {
-    broadcast(responseLatestMsg());
+    broadcast(responseLatestBlock());
 };
 
 /**
