@@ -36,3 +36,11 @@ X ~$ yarn add body-parser # Express 4.16+ has own body-parser
 ```bash
 ~$ curl -H "Content-type:application/json" -d "{\"data\":\"Some data to the first block\"}" http://localhost:3001/mineBlock
 ```
+#### Query connected peers
+```bash
+~$ curl http://localhost:3001/peers
+```
+#### Add peer
+```bash
+~$ curl -H "Content-type:application/json" --data "{\"peer\":\"ws://localhost:6001\"}" http://localhost:3001/addPeer
+```
