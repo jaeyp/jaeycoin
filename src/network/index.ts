@@ -1,7 +1,13 @@
 import {
-    broadcastLatest
+    getSockets,
+    broadcastLatest,
+    connectToPeers,
+    initP2PServer
 } from './p2p'
 
 export {
-    broadcastLatest
+    getSockets,
+    broadcastLatest,
+    connectToPeers,
+    initP2PServer
 }

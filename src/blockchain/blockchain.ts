@@ -51,10 +51,12 @@ const generateNextBlock = (data: string): Block => {
     return newBlock
 }
 
-const addBlockToChain = (newBlock: Block): void => {
+const addBlockToChain = (newBlock: Block): Boolean => {
     if (Validator.isValidNewBlock(newBlock, getLatestBlock())) {
         blockchain.push(newBlock)
+        return true
     }
+    return false
 }
 
 const replaceChain = (newBlockchain: Block[]) => {
