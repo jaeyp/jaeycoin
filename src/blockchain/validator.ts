@@ -9,7 +9,7 @@ const isValidChain = (blockchainToValidate: Block[]): boolean => {
         if (!isValidGenesis(blockchainToValidate[0])) {
             return false
         }
-        // After that we validate every consecutive block using the previously described methods.
+        // After that, we validate every consecutive block using the previously described methods.
         for (let i=1; i<blockchainToValidate.length; i++) {
             if (!isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i-1]))
                 return false

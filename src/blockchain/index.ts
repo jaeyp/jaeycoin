@@ -1,9 +1,14 @@
-import { 
+import Block, { 
     getBlockchain,
-    generateNextBlock
+    getLatestBlock,
+    generateNextBlock,
+    replaceChain
 } from "./blockchain"
 
 export {
+    Block,
     getBlockchain,
-    generateNextBlock
+    getLatestBlock,
+    generateNextBlock,
+    replaceChain
 };

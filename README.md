@@ -4,9 +4,14 @@
 * from scratch
 ```bash
 ~$ yarn init
+# typescript
 ~$ yarn global add typescript
-~$ yarn add tsc-watch --dev  # support watch mode
+# support watch mode
+~$ yarn add tsc-watch --dev
+# crypto library
 ~$ yarn add crypto-j
+# websocket library
+~$ yarn add ws
 ```
 * from cloning
 ```bash
