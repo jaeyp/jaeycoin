@@ -1,4 +1,5 @@
 # mincoin
+Minimal Implementation of Blockchain and Cryptocurrency
 
 ### Installation
 * from scratch
