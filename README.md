@@ -1,4 +1,4 @@
-# jaeycoin
+# mincoin
 
 ### Installation
 * from scratch
