@@ -11,7 +11,8 @@ import {
     isValidNewBlock,
     isValidBlockStructure,
     isValidTimestamp,
-    hasValidHash
+    hasValidHash,
+    hashMatchesDifficulty
 } from "./validator"
 
 export default Block
@@ -27,5 +28,6 @@ export {
     isValidNewBlock,
     isValidBlockStructure,
     isValidTimestamp,
-    hasValidHash
+    hasValidHash,
+    hashMatchesDifficulty
 };
