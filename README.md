@@ -1,6 +1,9 @@
 # mincoin
 Minimal Implementation of Blockchain and Cryptocurrency
 
+## 1: Minimal working blockchain
+http://lhartikk.github.io/jekyll/update/2017/07/14/chapter1.html
+
 ### Installation
 * from scratch
 ```bash
