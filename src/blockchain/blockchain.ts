@@ -153,7 +153,7 @@ const replaceChain = (newBlockchain: Block[]) => {
      * In case of conflicts,
      * we choose the chain that has the most cumulative difficulty. (Chain w/ higher difficulty dominates)
      * e.g. the "Chain B" is the "correct" chain in the below
-     *  Chain A: 5 blocks w/ difficulty 4: 2^4 + 2^4 + 2^4 + 2^4 + 2^4 = 80
+     *  Chain A: 5 blocks w/ difficulty 4 & 5: 2^4 + 2^4 + 2^4 + 2^4 + 2^5 = 96
      *  Chain B: 2 blocks w/ difficulty 6: 2^6 + 2^6 = 128
      */
     if (Validator.isValidChain(newBlockchain) && getAccumulatedDifficulty(newBlockchain) > getAccumulatedDifficulty(getBlockchain())) {
