@@ -9,7 +9,8 @@ class Block {
     public timestamp: number;
     public data: string;
     // difficulty: 
-    // it defines how many prefixing zeros the block hash must have, in order for the block to be valid
+    // It defines how many prefixing zeros the block hash must have, in order for the block to be valid
+    // We can control how often blocks are mined by changing the difficulty. (Proof-of-Work)
     public difficulty: number;
     // nonce:
     // In order to find a hash that satisfies the difficulty, 
