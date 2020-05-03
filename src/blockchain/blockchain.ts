@@ -8,7 +8,13 @@ class Block {
     public previousHash: string;
     public timestamp: number;
     public data: string;
+    // difficulty: 
+    // it defines how many prefixing zeros the block hash must have, in order for the block to be valid
     public difficulty: number;
+    // nonce:
+    // In order to find a hash that satisfies the difficulty, 
+    // we must be able to calculate different hashes for the same content of the block. 
+    // This is done by modifying the nonce parameter
     public nonce: number;
 
     constructor(
@@ -44,7 +50,6 @@ const getLatestBlock = (): Block => blockchain[blockchain.length - 1]
 
 // in seconds
 const BLOCK_GENERATION_INTERVAL: number = 10;
-
 // in blocks
 const DIFFICULTY_ADJUSTMENT_INTERVAL: number = 10;
 
@@ -70,7 +75,6 @@ const getAdjustedDifficulty = (latestBlock: Block, aBlockchain: Block[]) => {
     }
 };
 
-
 const generateNextBlock = (data: string): Block => {
     const previousBlock: Block = getLatestBlock()
     const nextIndex: number = previousBlock.index + 1
@@ -83,6 +87,14 @@ const generateNextBlock = (data: string): Block => {
     return newBlock
 }
 
+/**
+ * findBlock: to find a valid block hash, we must increase the nonce as until we get a valid hash.
+ * @param index 
+ * @param previousHash 
+ * @param timestamp 
+ * @param data 
+ * @param difficulty 
+ */
 const findBlock = (index: number, previousHash: string, timestamp: number, data: string, difficulty: number): Block => {
     let nonce = 0;
     while (true) {
