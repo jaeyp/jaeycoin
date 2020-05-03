@@ -28,3 +28,6 @@ Minimal Implementation of Blockchain and Cryptocurrency
 ```bash
 ~$ curl -H "Content-type:application/json" --data "{\"peer\":\"ws://localhost:6001\"}" http://localhost:3001/addPeer
 ```
+
+### Reference
+https://github.com/lhartikk/naivecoin
