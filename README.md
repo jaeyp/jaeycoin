@@ -2,23 +2,6 @@
 Minimal Implementation of Blockchain and Cryptocurrency
 
 ### Installation
-* from scratch
-```bash
-~$ yarn init
-# typescript
-~$ yarn global add typescript
-# support watch mode
-~$ yarn add tsc-watch --dev
-# crypto library
-~$ yarn add crypto-j
-# websocket library
-~$ yarn add ws
-# request body parsing middleware
-X ~$ yarn add body-parser # Express 4.16+ has own body-parser
-# express
-~$ yarn add express
-```
-* from cloning
 ```bash
 ~$ yarn install
 ```
