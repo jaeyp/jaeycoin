@@ -1,6 +1,10 @@
 # mincoin
 Minimal Implementation of Blockchain and Cryptocurrency
 
+## 2: Proof of Work
+Implemantation of a Proof-of-Work which is difficult to solve, but easy to verify
+http://lhartikk.github.io/jekyll/update/2017/07/13/chapter2.html
+
 ### Installation
 ```bash
 ~$ yarn install
