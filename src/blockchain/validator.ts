@@ -38,7 +38,7 @@ const isValidNewBlock = (newBlock: Block, previousBlock: Block): boolean => {
         isValidIndex(newBlock, previousBlock) &&
         isValidPreviousHash(newBlock, previousBlock) &&
         isValidTimestamp(newBlock, previousBlock) &&
-        hasValidHash(newBlock) */
+        hasValidHash(newBlock); */
 }
 const isValidBlockStructure = (block: Block): boolean => {
         return typeof block.index === 'number'
@@ -58,9 +58,9 @@ const isValidBlockStructure = (block: Block): boolean => {
  *  2. A block in the chain is valid, if the timestamp is at most 1 min in the past of the previous block.
  */
 const isValidTimestamp = (newBlock: Block, previousBlock: Block): boolean => {
-    const TOLERANCE = 60  // in seconds
-    const isAfterPreviousBlock = () => previousBlock.timestamp - TOLERANCE < newBlock.timestamp
-    const isBeforeCurrentTime = () => newBlock.timestamp - TOLERANCE < Util.getCurrentTimestamp()
+    const TOLERANCE = 60;  // in seconds
+    const isAfterPreviousBlock = () => previousBlock.timestamp - TOLERANCE < newBlock.timestamp;
+    const isBeforeCurrentTime = () => newBlock.timestamp - TOLERANCE < Util.getCurrentTimestamp();
     return isAfterPreviousBlock() && isBeforeCurrentTime();
 };
 const hasValidHash = (block: Block): boolean => {
@@ -76,9 +76,9 @@ const hasValidHash = (block: Block): boolean => {
 }
 
 const hashMatchesDifficulty = (hash: string, difficulty: number): boolean => {
-    const hashInBinary: string = Util.hexToBinary(hash)
-    const requiredPrefix: string = '0'.repeat(difficulty)
-    return hashInBinary.startsWith(requiredPrefix)
+    const hashInBinary: string = Util.hexToBinary(hash);
+    const requiredPrefix: string = '0'.repeat(difficulty);
+    return hashInBinary.startsWith(requiredPrefix);
 }
 
 export {

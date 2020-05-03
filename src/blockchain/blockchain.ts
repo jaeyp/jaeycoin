@@ -70,6 +70,20 @@ const getDifficulty = (aBlockchain: Block[]): number => {
 };
 
 /**
+ * getAccumulatedDifficulty
+ * @param aBlockchain 
+ * @description 
+ *  We have to use the 2^difficulty as we chose the difficulty to represent the number of zeros that must prefix the hash in binary format.
+ *  For instance, if we compare the difficulties of 5 and 11, it requires 2^(11-5) = 2^6 times more work to find a block with latter difficulty.
+ */
+const getAccumulatedDifficulty = (aBlockchain: Block[]): number => {
+    return aBlockchain
+        .map((block) => block.difficulty)
+        .map((difficulty) => Math.pow(2, difficulty))
+        .reduce((a, b) => a + b);
+};
+
+/**
  * getAdjustedDifficulty
  * @param latestBlock 
  * @param aBlockchain 
@@ -137,9 +151,12 @@ const replaceChain = (newBlockchain: Block[]) => {
      * 
      * There should always be only one explicit set of blocks in the chain at a given time.
      * In case of conflicts,
-     * we choose the chain that has the longest number of blocks. (Longer chain dominates)
+     * we choose the chain that has the most cumulative difficulty. (Chain w/ higher difficulty dominates)
+     * e.g. the "Chain B" is the "correct" chain in the below
+     *  Chain A: 5 blocks w/ difficulty 4: 2^4 + 2^4 + 2^4 + 2^4 + 2^4 = 80
+     *  Chain B: 2 blocks w/ difficulty 6: 2^6 + 2^6 = 128
      */
-    if (Validator.isValidChain(newBlockchain) && newBlockchain.length > getBlockchain().length) {
+    if (Validator.isValidChain(newBlockchain) && getAccumulatedDifficulty(newBlockchain) > getAccumulatedDifficulty(getBlockchain())) {
         console.log('Received blockchain is valid. Replacing current blockchain with received blockchain');
         blockchain = newBlockchain;
         Network.broadcastLatest();
