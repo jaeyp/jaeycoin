@@ -1,17 +1,12 @@
 # mincoin
 Minimal Implementation of Blockchain and Cryptocurrency
 
-### Installation
 ```bash
 ~$ yarn install
-```
-
-### Run app
-```bash
 ~$ yarn start
 ```
 
-### Test API
+## Test API
 #### Get blockchain
 ```bash
 ~$ curl http://localhost:3001/blocks
@@ -29,5 +24,5 @@ Minimal Implementation of Blockchain and Cryptocurrency
 ~$ curl -H "Content-type:application/json" --data "{\"peer\":\"ws://localhost:6001\"}" http://localhost:3001/addPeer
 ```
 
-### Reference
+## Reference
 https://github.com/lhartikk/naivecoin
