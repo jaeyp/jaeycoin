@@ -25,5 +25,5 @@ Minimal Implementation of Blockchain and Cryptocurrency
 ```
 
 ## References
-[Naivecoin](https://github.com/lhartikk/naivecoin)
+[Naivecoin](https://github.com/lhartikk/naivecoin)  
 [Mastering Bitcoin: Programming the Open Blockchain 2nd Edition](https://github.com/bitcoinbook/bitcoinbook/blob/develop/README.md)  
