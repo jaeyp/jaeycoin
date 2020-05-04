@@ -116,9 +116,12 @@ const generateNextBlock = (data: Transaction[]): Block => {
     const difficulty: number = getDifficulty(getBlockchain());
     const newBlock: Block = findBlock(nextIndex, previousBlock.hash, nextTimestamp, data, difficulty);
 
-    addBlockToChain(newBlock)
-    Network.broadcastLatest()
-    return newBlock
+    if (addBlockToChain(newBlock)) {
+        Network.broadcastLatest()
+        return newBlock
+    } else {
+        return null;
+    }
 }
 
 /**
@@ -153,7 +156,6 @@ const addBlockToChain = (newBlock: Block): Boolean => {
             unspentTxOuts = newUnspentTxOuts
             return true;
         }
-        return true
     }
     return false
 }
