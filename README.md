@@ -25,5 +25,5 @@ Minimal Implementation of Blockchain and Cryptocurrency
 ```
 
 ## Reference
-[Mastering Bitcoin - Second Edition](https://github.com/bitcoinbook/bitcoinbook/blob/develop/README.md)
+[Mastering Bitcoin - Second Edition](https://github.com/bitcoinbook/bitcoinbook/blob/develop/README.md)  
 [Naivecoin](https://github.com/lhartikk/naivecoin)
