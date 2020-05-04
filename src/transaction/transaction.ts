@@ -180,5 +180,6 @@ export {
     Transaction, 
     calculateTransactionId,
     getTxInAmount,
-    processTransactions
+    processTransactions,
+    signTxIn
 }

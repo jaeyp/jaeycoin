@@ -1,14 +1,14 @@
 import * as Validator from "./validator"
 import * as Util from "../util"
 import * as Network from "../network/"
-import {UnspentTxOut, Transaction } from '../transaction/'
+import { UnspentTxOut, Transaction, processTransactions } from '../transaction/'
 
 class Block {
     public index: number;
     public hash: string;
     public previousHash: string;
     public timestamp: number;
-    public data: string;
+    public data: Transaction[];
     // difficulty: 
     // It defines how many prefixing zeros the block hash must have, in order for the block to be valid
     // We can control how often blocks are mined by changing the difficulty. (Proof-of-Work)
@@ -24,7 +24,7 @@ class Block {
         hash: string,
         previousHash: string,
         timestamp: number,
-        data: string,
+        data: Transaction[],
         difficulty: number,
         nonce: number
     ) {
@@ -39,7 +39,7 @@ class Block {
 }
 
 // The first block of the blockchain is always a so-called “genesis-block”, which is hard coded.
-const genesisBlock: Block = new Block(0, "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7", "0", 1588310945, "Genesis block!!", 0, 0)
+const genesisBlock: Block = new Block(0, "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7", "0", 1588310945, [], 0, 0)
 
 // A in-memory Javascript array is used to store the blockchain. 
 let blockchain: Block[] = [genesisBlock]
@@ -109,7 +109,7 @@ const getAdjustedDifficulty = (latestBlock: Block, aBlockchain: Block[]) => {
     }
 };
 
-const generateNextBlock = (data: string): Block => {
+const generateNextBlock = (data: Transaction[]): Block => {
     const previousBlock: Block = getLatestBlock()
     const nextIndex: number = previousBlock.index + 1
     const nextTimestamp: number = Util.getCurrentTimestamp()
@@ -130,7 +130,7 @@ const generateNextBlock = (data: string): Block => {
  * @param difficulty 
  * @description to find a valid block hash, we must increase the nonce as until we get a valid hash.
  */
-const findBlock = (index: number, previousHash: string, timestamp: number, data: string, difficulty: number): Block => {
+const findBlock = (index: number, previousHash: string, timestamp: number, data: Transaction[], difficulty: number): Block => {
     let nonce = 0;
     while (true) {
         const hash: string = Util.calculateHash(index, previousHash, timestamp, data, difficulty, nonce);
@@ -143,7 +143,16 @@ const findBlock = (index: number, previousHash: string, timestamp: number, data:
 
 const addBlockToChain = (newBlock: Block): Boolean => {
     if (Validator.isValidNewBlock(newBlock, getLatestBlock())) {
-        blockchain.push(newBlock)
+        const newUnspentTxOuts: UnspentTxOut[] = processTransactions(newBlock.data, unspentTxOuts, newBlock.index);
+        if (newUnspentTxOuts === null) {
+            return false;
+        } else {
+            // Adding new block to chain
+            blockchain.push(newBlock);
+            // Updating unspent transaction outputs
+            unspentTxOuts = newUnspentTxOuts
+            return true;
+        }
         return true
     }
     return false

@@ -1,6 +1,7 @@
 import * as Crypto from "crypto-js"
 import * as ecdsa from 'elliptic';
 import Block from "../blockchain"
+import { Transaction } from "../transaction/"
 
 const ec = new ecdsa.ec('secp256k1');
 
@@ -11,7 +12,7 @@ const calculateHash = (
     index: number, 
     previousHash: string, 
     timestamp: number,
-    data: string,
+    data: Transaction[],
     difficulty: number,
     nonce: number
 ): string => Crypto.SHA256(index + previousHash + timestamp + data + difficulty + nonce).toString()
