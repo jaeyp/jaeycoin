@@ -45,7 +45,7 @@ const isValidBlockStructure = (block: Block): boolean => {
             && typeof block.hash === 'string'
             && typeof block.previousHash === 'string'
             && typeof block.timestamp === 'number'
-            && typeof block.data === 'string';
+            && typeof block.data === 'object';
 }
 /**
  * isValidTimestamp
