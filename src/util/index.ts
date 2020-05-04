@@ -1,5 +1,8 @@
 import * as Crypto from "crypto-js"
-import Block from "./blockchain"
+import * as ecdsa from 'elliptic';
+import Block from "../blockchain"
+
+const ec = new ecdsa.ec('secp256k1');
 
 const calculateHashForBlock = (block: Block): string =>
     calculateHash(block.index, block.previousHash, block.timestamp, block.data, block.difficulty, block.nonce)
@@ -33,9 +36,21 @@ const hexToBinary = (s: string): string => {
     return ret;
 };
 
+const toHexString = (byteArray): string => {
+    return Array.from(byteArray, (byte: any) => {
+        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('');
+};
+
+const getPublicKey = (aPrivateKey: string): string => {
+    return ec.keyFromPrivate(aPrivateKey, 'hex').getPublic().encode('hex');
+};
+
 export {
     calculateHashForBlock,
     calculateHash,
     getCurrentTimestamp,
-    hexToBinary
+    hexToBinary,
+    toHexString,
+    getPublicKey
 }

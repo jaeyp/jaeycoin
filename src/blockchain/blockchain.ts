@@ -1,6 +1,7 @@
 import * as Validator from "./validator"
-import * as Util from "./util"
+import * as Util from "../util"
 import * as Network from "../network/"
+import {UnspentTxOut, Transaction } from '../transaction/'
 
 class Block {
     public index: number;
@@ -42,6 +43,9 @@ const genesisBlock: Block = new Block(0, "816534932c2b7154836da6afc367695e6337db
 
 // A in-memory Javascript array is used to store the blockchain. 
 let blockchain: Block[] = [genesisBlock]
+
+// The list of Unspent Transactions Outputs (UTXO): it contains data(amount) of coins that can be used(spent) by owner.
+let unspentTxOuts: UnspentTxOut[] = [];
 
 const getBlockchain = (): Block[] => blockchain
 

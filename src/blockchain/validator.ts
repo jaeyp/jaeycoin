@@ -1,5 +1,5 @@
 import Block, * as Blockchain from "./blockchain"
-import * as Util from "./util"
+import * as Util from "../util"
 
 const isValidChain = (blockchainToValidate: Block[]): boolean => {
         const isValidGenesis = (block: Block): boolean => JSON.stringify(block) === JSON.stringify(Blockchain.getGenesisBlock())
